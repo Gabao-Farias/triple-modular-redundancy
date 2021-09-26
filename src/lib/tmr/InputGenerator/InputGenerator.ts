@@ -9,17 +9,8 @@ export default class InputGenerator implements IInputGenerator
 {
     private _config: IInputGeneratorConfig;
 
-    private _inputFunction: (input: number) => number;
-    get inputFunction(){
-        return this._inputFunction
-    }
-    set inputFunction(inputFunction:(input: number) => number){
-        this._inputFunction = inputFunction
-    }
-
-    constructor(fn:(input: number) => number, config?: IInputGeneratorConfig, ) {
+    constructor(config?: IInputGeneratorConfig, ) {
         this._config = config ?? new InputGeneratorConfig()
-        this._inputFunction = fn;
     }
 
     public GenerateRandomInput(): number {

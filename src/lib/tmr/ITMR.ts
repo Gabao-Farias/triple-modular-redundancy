@@ -7,5 +7,5 @@ import VotingMethod from "./Voter/VotingMethod";
 export default interface ITMR{
     inputGenerator: IInputGenerator
     AddOperationModule(operationModule: IOperationModule): void
-    Run(runConfig: TMRRunConfig): TMRResult
+    Run(runConfig: TMRRunConfig): Promise<TMRResult>
 }

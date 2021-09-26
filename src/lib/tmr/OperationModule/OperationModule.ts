@@ -1,3 +1,4 @@
+import functions from "../../../utils/functions";
 import IOperationModule from "./IOperationModule";
 import IOperationModuleConfig from "./IOperationModuleConfig";
 
@@ -17,6 +18,7 @@ export default class OperationModule implements IOperationModule
     }
     set configuration(configuration: IOperationModuleConfig){
         this._configuration = configuration;
+        this._operation = functions[this._configuration.operationName]
     }
 
     public DoOperation(input: number): number{
