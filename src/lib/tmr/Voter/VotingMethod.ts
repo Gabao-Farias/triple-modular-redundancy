@@ -1,6 +1,7 @@
 enum VotingMethod{
     Average,
-    Quantity
+    Quantity,
+    Mixed
 }
 
 export default VotingMethod;
