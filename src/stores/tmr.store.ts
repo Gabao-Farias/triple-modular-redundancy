@@ -1,4 +1,5 @@
 import { action, makeAutoObservable, observable } from 'mobx';
+import { persist } from 'mobx-persist';
 import IOperationModuleConfig from '../lib/tmr/OperationModule/IOperationModuleConfig';
 import TMR from '../lib/tmr/TMR';
 import TMRResult from '../lib/tmr/TMRResult';
@@ -9,6 +10,7 @@ export default class TMRStore {
     makeAutoObservable(this);
   }
 
+  @persist('object')
   @observable
   moduleConfig: IOperationModuleConfig = {
     deviationChance: 0,
@@ -17,12 +19,15 @@ export default class TMRStore {
     operationName: 'double',
   };
 
+  @persist('object')
   @observable
   runConfig: TMRRunConfig = new TMRRunConfig();
 
+  @persist('object')
   @observable
   tmr?: TMR = new TMR(this.moduleConfig);
 
+  @persist('object')
   @observable
   tmrResults?: TMRResult;
 

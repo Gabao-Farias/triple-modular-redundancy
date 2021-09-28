@@ -1,13 +1,16 @@
 import { action, makeAutoObservable, observable } from 'mobx';
+import { persist } from 'mobx-persist';
 
 export default class UserStore {
   constructor() {
     makeAutoObservable(this);
   }
 
+  @persist('object')
   @observable
   nome?: string;
 
+  @persist('object')
   @observable
   idade?: number;
 
