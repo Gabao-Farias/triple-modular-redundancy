@@ -8,7 +8,7 @@ import { FunctionsKeys } from './utils';
 import InputGenerator from './lib/tmr/InputGenerator/InputGenerator';
 import TMR from './lib/tmr/TMR';
 import OperationModule from './lib/tmr/OperationModule/OperationModule';
-import { ConfigTitle, ConfigWrapper, Wrapper } from './styles';
+import { ConfigTitle, ConfigWrapper, RunButton, Wrapper } from './styles';
 
 type Props = {
   tmrStore?: TMRStore;
@@ -103,8 +103,8 @@ const App: React.FC<Props> = ({ tmrStore }) => {
             modulePerIterationValue={tmrStore?.modulesPerIteration}
           />
         </ConfigWrapper>
+        <RunButton onClick={() => handleClick()}>Run</RunButton>
       </div>
-      <button style={{background: "#f14"}} onClick={() => handleClick()}>Button</button>
       <Results results={tmrStore?.results} />
       <div
         style={{

@@ -18,7 +18,8 @@ export const ResultsWrapper = styled.div`
 `;
 
 export const Label = styled.h4<LabelProps>`
-  /* color: ${({ error = false }) => error ? ErrorColor : PureWhite}; */
+  color: ${({ error = false }) => error ? ErrorColor : PureWhite};
+  font-weight: ${({ error = false }) => error ? 900 : 700};
 `;
 
 export const IterationWrapper = styled.div`

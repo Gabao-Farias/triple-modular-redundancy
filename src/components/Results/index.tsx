@@ -19,8 +19,8 @@ const Results: FC<Props> = ({ results = [] }) => {
             <ModulesWrapper>
               {iterationResult.processedOutputs.map((value, index) => (
                 <ModuleWrapper error={value !== iterationResult.expectedResult}>
-                  <Label error={value !== iterationResult.expectedResult}>Module: {index + 1}</Label>
-                  <Label error={value !== iterationResult.expectedResult}>GeneratedValue: {value}</Label>
+                  <Label>Module: {index + 1}</Label>
+                  <Label>GeneratedValue: {value}</Label>
                 </ModuleWrapper>
               ))}
             </ModulesWrapper>
