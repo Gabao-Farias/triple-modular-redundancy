@@ -69,6 +69,8 @@ export default class TMR implements ITMR {
 
             runResult.iterationResult.push(iterationResult)
         }
+
+        runResult.GenerateStatistics()
         return runResult
     }
 }
