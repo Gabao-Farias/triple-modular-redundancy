@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { InputGeneratorConfig, OperationModuleConfig, Results, RunConfig } from './components';
+import { InputGeneratorConfig, OperationModuleConfig, Results, RunConfig, Statistics } from './components';
 import VotingMethod from './lib/tmr/Voter/VotingMethod';
 import { StoreKeyNames } from './stores';
 import TMRStore from './stores/tmr.store';
@@ -56,7 +56,6 @@ const App: React.FC<Props> = ({ tmrStore }) => {
   };
 
   const handleClick = async () => {
-    console.log("Perssed");
     try {
       await tmrStore?.run();
     } catch (err) {
@@ -106,6 +105,7 @@ const App: React.FC<Props> = ({ tmrStore }) => {
         <RunButton onClick={() => handleClick()}>Run</RunButton>
       </div>
       <Results results={tmrStore?.results} />
+      <Statistics statistics={tmrStore?.statistics} />
       <div
         style={{
           display: 'flex',

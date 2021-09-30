@@ -10,6 +10,7 @@ export default class TMRStore {
     makeAutoObservable(this);
   }
 
+
   @persist('object')
   @observable
   inputGeneratorConfig: InputGeneratorType = { maximum: 1000, minimum: 1 };
@@ -34,6 +35,10 @@ export default class TMRStore {
   @persist('object')
   @observable
   results: ModuleIterationResultType[] = [];
+
+  @persist('object')
+  @observable
+  statistics?: TMRResultStatistics;
 
   @action
   setModulesPerIteration = (modules: number) => {
@@ -61,6 +66,11 @@ export default class TMRStore {
   };
 
   @action
+  setStatistics = (statistics?: TMRResultStatistics) => {
+    this.statistics = statistics;
+  };
+
+  @action
   run = async (): Promise<void> => {
     const tmr = new TMR(this.operationModuleConfig);
     const modules = getModulesPerIteration(this.modulesPerIteration);
@@ -69,7 +79,9 @@ export default class TMRStore {
     tmr.inputGenerator = new InputGenerator({ maximum: 50, minimum: 1});
 
     const results = await tmr.Run(this.tmrConfig);
+    console.log(results);
 
-    this.setResults(results.iterationResult);    
+    this.setResults(results.iterationResult);
+    this.setStatistics(results.statistics);
   };
 }
