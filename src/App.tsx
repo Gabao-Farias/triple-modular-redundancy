@@ -32,6 +32,7 @@ const App: React.FC<Props> = ({ tmrStore }) => {
   };
 
   const handleIterationsChange = ( iterations: number ): void => {
+    console.log(iterations);
     tmrStore?.setTMRRunConfig({ iterations })
   };
 
@@ -53,8 +54,11 @@ const App: React.FC<Props> = ({ tmrStore }) => {
 
   const handleClick = async () => {
     console.log("Perssed");
-    // if (tmrStore?.run)
-    //   await tmrStore.run();
+    try {
+      await tmrStore?.run();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -88,9 +92,9 @@ const App: React.FC<Props> = ({ tmrStore }) => {
           />
           <RunConfig
             handleVotingChange={handleVotingMethodChange}
-            votingValue={tmrStore?.runConfig.votingMethod || 0}
+            votingValue={tmrStore?.tmrConfig.votingMethod || 0}
             votingMethods={splitCorrectVotingMethodKeys()}
-            iterationsValue={tmrStore?.runConfig.iterations}
+            iterationsValue={tmrStore?.tmrConfig.iterations}
             handleIterationChange={handleIterationsChange}
           />
         </ConfigWrapper>
@@ -118,7 +122,7 @@ export default inject(tmr)(observer(App));
 
 const teste = new TMR({deviationChance: 10, deviationMaxThreshold: 5, deviationMinThreshold: 0.1, operationName: "double"});
 
-var op = [new OperationModule(), new OperationModule(), new OperationModule()]
+var op = [new OperationModule(), new OperationModule(), new OperationModule(), new OperationModule(), new OperationModule()]
 const inp = new InputGenerator({ maximum: 50, minimum: 1})
 
 teste.AddOperationModule(...op)

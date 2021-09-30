@@ -7,6 +7,7 @@ import OperationModuleConfig from '../lib/tmr/OperationModule/OperationModuleCon
 import TMR from '../lib/tmr/TMR';
 import TMRResult from '../lib/tmr/TMRResult';
 import TMRRunConfig from '../lib/tmr/TMRRunConfig';
+import { OperationModuleType } from '../utils/types';
 
 export default class TMRStore {
   constructor() {
@@ -15,55 +16,58 @@ export default class TMRStore {
 
   @persist('object')
   @observable
-  inputGeneratorConfig: InputGeneratorConfig = new InputGeneratorConfig();
+  inputGeneratorConfig: InputGeneratorType = { maximum: 1000, minimum: 1 };
 
   @persist('object')
   @observable
-  inputGenerator: InputGenerator = new InputGenerator();
+  operationModuleConfig: OperationModuleType = {
+    deviationChance: 10,
+    deviationMaxThreshold: 15,
+    deviationMinThreshold: 5,
+    operationName: 'double',
+  };
 
   @persist('object')
   @observable
-  operationModuleConfig: OperationModuleConfig = new OperationModuleConfig();
+  tmrConfig: TMRRunConfigType = { iterations: 10, votingMethod: 0 }
 
   @persist('object')
   @observable
-  operationModule: OperationModule = new OperationModule();
-
-  @persist('object')
-  @observable
-  runConfig: TMRRunConfig = new TMRRunConfig();
-
-  @persist('object')
-  @observable
-  tmr?: TMR = new TMR(this.operationModuleConfig);
-
-  @persist('object')
-  @observable
-  tmrResults?: TMRResult;
+  results: ModuleIterationResultType[] = [];
 
   @action
-  setInputGeneratorConfig = (config: Partial<InputGeneratorConfig>, updateInputGenerator = true): void => {
+  setInputGeneratorConfig = (config: Partial<InputGeneratorType>) => {
     this.inputGeneratorConfig = {...this.inputGeneratorConfig, ...config};
-    if (updateInputGenerator)
-      this.inputGenerator = new InputGenerator(this.inputGeneratorConfig);
   };
 
   @action
-  setOperationModuleConfig = (config: Partial<OperationModuleConfig>, updateOperationModule = true): void => {
+  setOperationModuleConfig = (config: Partial<OperationModuleType>) => {
     this.operationModuleConfig = {...this.operationModuleConfig, ...config};
-    if (updateOperationModule)
-      this.operationModule = new OperationModule(this.operationModuleConfig);
   };
 
   @action
-  setTMRRunConfig = (config: Partial<TMRRunConfig>): void => {
-    this.runConfig = {...this.runConfig, ...config};
+  setTMRRunConfig = (config: Partial<TMRRunConfigType>) => {
+    this.tmrConfig = {...this.tmrConfig, ...config};
+  };
+
+  @action
+  setResults = (results: ModuleIterationResultType[]) => {
+    this.results = results;
   };
 
   @action
   run = async (): Promise<void> => {
-    const results = await this.tmr?.Run(this.runConfig);
+    const tmr = new TMR(this.operationModuleConfig);
+    const modules = [new OperationModule(), new OperationModule(), new OperationModule()];
+
+    tmr.AddOperationModule(...modules);
+    tmr.inputGenerator = new InputGenerator({ maximum: 50, minimum: 1});
+
+    const results = await tmr.Run(this.tmrConfig);
+
+    this.setResults(results.iterationResult);
 
     console.log(results);
+    console.log(this.results);
   };
 }
