@@ -135,6 +135,6 @@ teste.AddOperationModule(...op)
 teste.inputGenerator = inp;
 
 (async () => {
-  var r = await teste.Run({ iterations: 2, votingMethod: VotingMethod.Average})
+  var r = await teste.Run({ iterations: 100, votingMethod: VotingMethod.Average})
   console.log(r);
 })()
