@@ -5,6 +5,10 @@ import VotingMethod from './lib/tmr/Voter/VotingMethod';
 import { StoreKeyNames } from './stores';
 import TMRStore from './stores/tmr.store';
 import { FunctionsKeys } from './utils';
+import InputGenerator from './lib/tmr/InputGenerator/InputGenerator';
+import TMR from './lib/tmr/TMR';
+import OperationModule from './lib/tmr/OperationModule/OperationModule';
+import { ConfigTitle, ConfigWrapper, Wrapper } from './styles';
 
 type Props = {
   tmrStore?: TMRStore;
@@ -31,16 +35,30 @@ const App: React.FC<Props> = ({ tmrStore }) => {
     tmrStore?.setTMRRunConfig({ iterations })
   };
 
-  const handleClick:React.MouseEventHandler<HTMLButtonElement> | undefined = async () => {
-    try {
-      await tmrStore?.run();
-    } catch (error) {
-      console.log("TÃO ME FUDENDO!");
-    }
+  const handleMaxMinChange = (iterations: number, minOrMax: "minimum" | "maximum"): void => {
+    tmrStore?.setInputGeneratorConfig({ [minOrMax]: iterations });
+  };
+
+  const handleDeviationChanceChange = (deviationChance: number): void => {
+    tmrStore?.setOperationModuleConfig({ deviationChance });
+  };
+
+  const handleDeviationMaxThresholdChange = (deviationMaxThreshold: number): void => {
+    tmrStore?.setOperationModuleConfig({ deviationMaxThreshold });
+  };
+
+  const handleDeviationMinThresholdChange = (deviationMinThreshold: number): void => {
+    tmrStore?.setOperationModuleConfig({ deviationMinThreshold });
+  };
+
+  const handleClick = async () => {
+    console.log("Perssed");
+    // if (tmrStore?.run)
+    //   await tmrStore.run();
   };
 
   return (
-    <>
+    <Wrapper>
       <div
         style={{
           display: 'flex',
@@ -50,22 +68,34 @@ const App: React.FC<Props> = ({ tmrStore }) => {
           justifyContent: 'center',
         }}
       >
-        <InputGeneratorConfig />
-        <OperationModuleConfig
-          value={tmrStore?.operationModuleConfig.operationName}
-          handleOperationNameChange={handleOperationNameChange}
-        />
-        <RunConfig
-          handleVotingChange={handleVotingMethodChange}
-          votingValue={tmrStore?.runConfig.votingMethod || 0}
-          votingMethods={splitCorrectVotingMethodKeys()}
-          iterationsValue={tmrStore?.runConfig.iterations}
-          handleIterationChange={handleIterationsChange}
-        />
-        <button onClick={handleClick}>Oii</button>
-        <h1>Hello world!</h1>
-        <h4>{tmrStore?.inputGeneratorConfig.maximum}</h4>
+        <ConfigTitle>Setup</ConfigTitle>
+        <ConfigWrapper>
+          <InputGeneratorConfig
+            maxValue={tmrStore?.inputGeneratorConfig.maximum}
+            minValue={tmrStore?.inputGeneratorConfig.minimum}
+            onChangeMaxValue={(iterations) => handleMaxMinChange(iterations, "maximum")}
+            onChangeMinValue={(iterations) => handleMaxMinChange(iterations, "minimum")}
+          />
+          <OperationModuleConfig
+            operationValue={tmrStore?.operationModuleConfig.operationName}
+            handleOperationNameChange={handleOperationNameChange}
+            deviationChanceValue={tmrStore?.operationModuleConfig.deviationChance}
+            handleDeviationChanceChange={handleDeviationChanceChange}
+            handleDeviationMaxThresholdChange={handleDeviationMaxThresholdChange}
+            handleDeviationMinThresholdChange={handleDeviationMinThresholdChange}
+            deviationMaxThresholdValue={tmrStore?.operationModuleConfig.deviationMaxThreshold}
+            deviationMinThresholdValue={tmrStore?.operationModuleConfig.deviationMinThreshold}
+          />
+          <RunConfig
+            handleVotingChange={handleVotingMethodChange}
+            votingValue={tmrStore?.runConfig.votingMethod || 0}
+            votingMethods={splitCorrectVotingMethodKeys()}
+            iterationsValue={tmrStore?.runConfig.iterations}
+            handleIterationChange={handleIterationsChange}
+          />
+        </ConfigWrapper>
       </div>
+      <button style={{background: "#f14"}} onClick={() => handleClick()}>Button</button>
       <div
         style={{
           display: 'flex',
@@ -75,13 +105,26 @@ const App: React.FC<Props> = ({ tmrStore }) => {
           justifyContent: 'center',
         }}
       >
-        <OperationModuleConfig />
         <h1>Hello world!</h1>
       </div>
-    </>
+    </Wrapper>
   );
 };
 
 const tmr: StoreKeyNames = 'tmrStore';
 
 export default inject(tmr)(observer(App));
+
+
+const teste = new TMR({deviationChance: 10, deviationMaxThreshold: 5, deviationMinThreshold: 0.1, operationName: "double"});
+
+var op = [new OperationModule(), new OperationModule(), new OperationModule()]
+const inp = new InputGenerator({ maximum: 50, minimum: 1})
+
+teste.AddOperationModule(...op)
+teste.inputGenerator = inp;
+
+(async () => {
+  var r = await teste.Run({ iterations: 2, votingMethod: VotingMethod.Average})
+  console.log(r);
+})()
