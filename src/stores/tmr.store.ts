@@ -70,9 +70,6 @@ export default class TMRStore {
 
     const results = await tmr.Run(this.tmrConfig);
 
-    this.setResults(results.iterationResult);
-
-    console.log(results);
-    console.log(this.results);
+    this.setResults(results.iterationResult);    
   };
 }
