@@ -4,8 +4,8 @@ export default class Voter implements IVoter {
 
     private AverageVoting(numberArr: number[]) : { closestMinimum: number, closestMaximum: number, average: number }{
         var average = numberArr.length > 0 ? numberArr.reduce((curr, total) => curr + total) / numberArr.length : 0
-        var closestMinimum: number = null
-        var closestMaximum: number = null
+        var closestMinimum: number = 0
+        var closestMaximum: number = 0
         numberArr.forEach(output => {
             if (closestMinimum == null || (output > closestMinimum && output <= average))
                 closestMinimum = output
@@ -17,7 +17,7 @@ export default class Voter implements IVoter {
     }  
 
     private QuantityVoting(numberArr: number[]) : number {
-        return numberArr.sort((a,b) => numberArr.filter(v => v===a).length - numberArr.filter(v => v===b).length).pop();
+        return numberArr.sort((a,b) => numberArr.filter(v => v===a).length - numberArr.filter(v => v===b).length).pop() || 0;
     } 
 
     DoVote(outputs: number[], votingMethod: VotingMethod): number {
@@ -37,9 +37,9 @@ export default class Voter implements IVoter {
                 var closestMaximumCount = 0
                 var closestMinimumCount = 0
                 outputs.forEach(item => {
-                    if (averageVotingResult.closestMaximum == item)
+                    if (averageVotingResult.closestMaximum === item)
                         closestMaximumCount++
-                    else if(averageVotingResult.closestMinimum == item)
+                    else if(averageVotingResult.closestMinimum === item)
                         closestMinimumCount++
                 })
                 result = closestMinimumCount >= closestMaximumCount ? averageVotingResult.closestMinimum : averageVotingResult.closestMaximum

@@ -13,11 +13,13 @@ import IOperationModule from "./OperationModule/IOperationModule";
 
 
 export default class TMR implements ITMR {
-    private _inputGenerator: IInputGenerator = null
+    private _inputGenerator: IInputGenerator = {
+        GenerateRandomInput: () => 0
+    }
     private _modules: IoperationModule[] = []
     private _currentOperationModuleConfig: IOperationModuleConfig
     private _voter: IVoter = new Voter()
-    public constructor(defaultOperationModuleConfig?: IOperationModuleConfig){
+    public constructor(defaultOperationModuleConfig: IOperationModuleConfig){
         this._currentOperationModuleConfig = defaultOperationModuleConfig
     }
 
@@ -49,7 +51,7 @@ export default class TMR implements ITMR {
             
         var runResult = new TMRResult();
         runResult.votingMethod = runConfig.votingMethod;
-        runResult.operationModuleConfig = { ... this._currentOperationModuleConfig }
+        runResult.operationModuleConfig = { ...this._currentOperationModuleConfig }
 
         for (var i = 0; i < runConfig.iterations; i++){
             var randomInput = this._inputGenerator.GenerateRandomInput()

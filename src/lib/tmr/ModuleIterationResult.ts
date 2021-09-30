@@ -1,6 +1,6 @@
 export default class ModuleIterationResult{
-    input: number
-    processedOutputs: number[]
-    voterResult: number
-    expectedResult: number
+    input: number = 0;
+    processedOutputs: number[] = [];
+    voterResult: number = 0;
+    expectedResult: number = 0;
 }

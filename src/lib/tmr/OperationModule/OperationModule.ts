@@ -1,10 +1,23 @@
 import functions from "../../../utils/functions";
 import IOperationModule from "./IOperationModule";
 import IOperationModuleConfig from "./IOperationModuleConfig";
+import OperationModuleConfig from "./OperationModuleConfig";
 
 export default class OperationModule implements IOperationModule
 {
-    private _operation: (input: number) => number;
+    private _operation: (input: number) => number = () => 0;
+
+    private _configuration: IOperationModuleConfig = {
+        deviationChance: 0,
+        deviationMaxThreshold: 0,
+        deviationMinThreshold: 0,
+        operationName: 'double',
+    };
+
+    constructor(config?: IOperationModuleConfig, ) {
+        this._configuration = config ?? new OperationModuleConfig();
+    }
+
     get operation(){
         return this._operation
     }
@@ -12,7 +25,6 @@ export default class OperationModule implements IOperationModule
         this._operation = fn;
     }
 
-    private _configuration: IOperationModuleConfig;
     get configuration(){
         return this._configuration
     }
