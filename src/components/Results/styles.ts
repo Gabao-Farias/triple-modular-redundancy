@@ -18,7 +18,9 @@ export const ResultsWrapper = styled.div`
 `;
 
 export const Label = styled.h4<LabelProps>`
-  color: ${({ error = false }) => error ? ErrorColor : PureWhite};
+  background-color: ${({ error = false }) => error ? ErrorColor : 'transparent'};
+  border-radius: 6px;
+  padding: 2px 6px;
   font-weight: ${({ error = false }) => error ? 900 : 700};
 `;
 
