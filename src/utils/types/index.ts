@@ -1,1 +1,1 @@
-export * from './TripleModularRedundancy';
+export * from './OperationModule';
