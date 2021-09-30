@@ -6,8 +6,10 @@ type Props = {
   inputWrapperProps?: React.HTMLAttributes<HTMLDivElement>;
   iterationsValue?: number;
   votingValue?: string | number;
+  modulePerIterationValue?: number;
   handleVotingChange?: (votingMethod: number) => void;
   handleIterationChange?: (iterations: number) => void;
+  handleModulePerIterationChange?: (modules: number) => void;
   votingMethods?: string[];
 };
 
@@ -18,7 +20,9 @@ const RunConfig: FC<Props> = ({
   votingMethods = [],
   handleVotingChange,
   handleIterationChange,
+  handleModulePerIterationChange,
   iterationsValue = 0,
+  modulePerIterationValue = 0,
 }) => {
   const defaultHandleChange = (value: string) => {
     if (handleVotingChange) {
@@ -30,6 +34,10 @@ const RunConfig: FC<Props> = ({
 
   const defaultHandleIterationChange = (target: EventTarget & HTMLInputElement) => {
     if (handleIterationChange) handleIterationChange(Number(target.value));
+  };
+
+  const defaultHandleModulePerIterationChange = (target: EventTarget & HTMLInputElement) => {
+    if (handleModulePerIterationChange) handleModulePerIterationChange(Number(target.value));
   };
 
   return (
@@ -54,6 +62,18 @@ const RunConfig: FC<Props> = ({
           <Select value={votingValue} onChange={({ target }) => defaultHandleChange(target.value)}>
             {votingMethods.map((key, index) => <Option key={key} value={index}>{key}</Option>)}
           </Select>
+        </SubWrapper>
+        <SubWrapper>
+          <Label>ModulesPerIteration</Label>
+          <SubLabel>(3 - 100)</SubLabel>
+          <TextInput
+            onChange={({target}) => defaultHandleModulePerIterationChange(target)}
+            maxLength={3}
+            max="100"
+            min="3"
+            type="number"
+            value={modulePerIterationValue}
+          />
         </SubWrapper>
       </InputWrapper>
     </Wrapper>

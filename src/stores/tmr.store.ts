@@ -1,12 +1,8 @@
 import { action, makeAutoObservable, observable } from 'mobx';
 import { persist } from 'mobx-persist';
 import InputGenerator from '../lib/tmr/InputGenerator/InputGenerator';
-import InputGeneratorConfig from '../lib/tmr/InputGenerator/InputGeneratorConfig';
-import OperationModule from '../lib/tmr/OperationModule/OperationModule';
-import OperationModuleConfig from '../lib/tmr/OperationModule/OperationModuleConfig';
 import TMR from '../lib/tmr/TMR';
-import TMRResult from '../lib/tmr/TMRResult';
-import TMRRunConfig from '../lib/tmr/TMRRunConfig';
+import { getModulesPerIteration } from '../utils';
 import { OperationModuleType } from '../utils/types';
 
 export default class TMRStore {
@@ -33,7 +29,16 @@ export default class TMRStore {
 
   @persist('object')
   @observable
+  modulesPerIteration: number = 0;
+
+  @persist('object')
+  @observable
   results: ModuleIterationResultType[] = [];
+
+  @action
+  setModulesPerIteration = (modules: number) => {
+    this.modulesPerIteration = modules;
+  };
 
   @action
   setInputGeneratorConfig = (config: Partial<InputGeneratorType>) => {
@@ -58,7 +63,7 @@ export default class TMRStore {
   @action
   run = async (): Promise<void> => {
     const tmr = new TMR(this.operationModuleConfig);
-    const modules = [new OperationModule(), new OperationModule(), new OperationModule()];
+    const modules = getModulesPerIteration(this.modulesPerIteration);
 
     tmr.AddOperationModule(...modules);
     tmr.inputGenerator = new InputGenerator({ maximum: 50, minimum: 1});

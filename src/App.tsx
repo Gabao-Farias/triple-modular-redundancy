@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { InputGeneratorConfig, OperationModuleConfig, RunConfig } from './components';
+import { InputGeneratorConfig, OperationModuleConfig, Results, RunConfig } from './components';
 import VotingMethod from './lib/tmr/Voter/VotingMethod';
 import { StoreKeyNames } from './stores';
 import TMRStore from './stores/tmr.store';
@@ -32,7 +32,6 @@ const App: React.FC<Props> = ({ tmrStore }) => {
   };
 
   const handleIterationsChange = ( iterations: number ): void => {
-    console.log(iterations);
     tmrStore?.setTMRRunConfig({ iterations })
   };
 
@@ -50,6 +49,10 @@ const App: React.FC<Props> = ({ tmrStore }) => {
 
   const handleDeviationMinThresholdChange = (deviationMinThreshold: number): void => {
     tmrStore?.setOperationModuleConfig({ deviationMinThreshold });
+  };
+
+  const handleModulesPerIterationChange = (modules: number): void => {
+    tmrStore?.setModulesPerIteration(modules);
   };
 
   const handleClick = async () => {
@@ -96,10 +99,13 @@ const App: React.FC<Props> = ({ tmrStore }) => {
             votingMethods={splitCorrectVotingMethodKeys()}
             iterationsValue={tmrStore?.tmrConfig.iterations}
             handleIterationChange={handleIterationsChange}
+            handleModulePerIterationChange={handleModulesPerIterationChange}
+            modulePerIterationValue={tmrStore?.modulesPerIteration}
           />
         </ConfigWrapper>
       </div>
       <button style={{background: "#f14"}} onClick={() => handleClick()}>Button</button>
+      <Results results={tmrStore?.results} />
       <div
         style={{
           display: 'flex',
