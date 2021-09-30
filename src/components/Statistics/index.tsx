@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Wrapper, Title, SuccessPercentageWrapper, SuccessPercentage, TotalsWrapper, SubTitle, TitleWrapper, Label, SubLabel, TotalWrapper, SuccessTitle, SubTotalsWrapper } from './styles';
+import { Wrapper, Title, SuccessPercentageWrapper, SuccessPercentage, TotalsWrapper, SubTitle, TitleWrapper, Label, TotalWrapper, SubTotalsWrapper } from './styles';
 // import { Wrapper } from './styles';
 
 type Props = {
@@ -15,7 +15,7 @@ const Statistics: FC<Props> = ({ statistics }) => {
         </TitleWrapper>
         <SuccessPercentageWrapper>
           <SubTitle>SuccessPercentage</SubTitle>
-          <SuccessPercentage>{statistics?.general.successPercentage}%</SuccessPercentage>
+          <SuccessPercentage>{statistics?.general.successPercentage.toFixed(2)}%</SuccessPercentage>
         </SuccessPercentageWrapper>
         <TotalsWrapper>
           <SubTitle>Totals</SubTitle>
