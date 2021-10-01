@@ -13,12 +13,12 @@ export default class TMRStore {
 
   @persist('object')
   @observable
-  inputGeneratorConfig: InputGeneratorType = { maximum: 1000, minimum: 1 };
+  inputGeneratorConfig: InputGeneratorType = { maximum: 100, minimum: 1 };
 
   @persist('object')
   @observable
   operationModuleConfig: OperationModuleType = {
-    deviationChance: 10,
+    deviationChance: 20,
     deviationMaxThreshold: 15,
     deviationMinThreshold: 5,
     operationName: 'double',
@@ -26,11 +26,11 @@ export default class TMRStore {
 
   @persist('object')
   @observable
-  tmrConfig: TMRRunConfigType = { iterations: 10, votingMethod: 0 }
+  tmrConfig: TMRRunConfigType = { iterations: 5, votingMethod: 0 }
 
   @persist('object')
   @observable
-  modulesPerIteration: number = 0;
+  modulesPerIteration: number = 5;
 
   @persist('object')
   @observable
