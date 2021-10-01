@@ -2,9 +2,12 @@ import { action, makeAutoObservable, observable } from 'mobx';
 import { persist } from 'mobx-persist';
 import InputGenerator from '../lib/tmr/InputGenerator/InputGenerator';
 import TMR from '../lib/tmr/TMR';
-import { getModulesPerIteration } from '../utils';
+import TMRResult from '../lib/tmr/TMRResult';
+import { getModulesPerIteration, votingMethodsFunctions, VotingMethodsFunctionsKeys } from '../utils';
 import { OperationModuleType } from '../utils/types';
 import { TMRRunConfigType } from '../utils/types/Run';
+
+const votingMethods = Object.keys(votingMethodsFunctions);
 
 export default class TMRStore {
   constructor() {
@@ -41,6 +44,10 @@ export default class TMRStore {
   @observable
   statistics?: TMRResultStatistics;
 
+  @persist('object')
+  @observable
+  benchmarkingResults?: TMRResult[];
+
   @action
   setModulesPerIteration = (modules: number) => {
     this.modulesPerIteration = modules;
@@ -72,6 +79,31 @@ export default class TMRStore {
   };
 
   @action
+  setBenchmarkingData = (benchmarkingResults: TMRResult[]): void => {
+    this.benchmarkingResults = benchmarkingResults;
+  };
+
+  @action
+  generateVotingMethodCoparisonResult = async () => {
+    const comparisonResults: TMRResult[] = [];
+    votingMethods.map(async (key) => {
+      if(key !== this.tmrConfig.votingMethod) {
+        const tmr = new TMR(this.operationModuleConfig);
+        const modules = getModulesPerIteration(this.modulesPerIteration);
+
+        tmr.AddOperationModule(...modules);
+        tmr.inputGenerator = new InputGenerator({ maximum: 50, minimum: 1});
+
+        const results = await tmr.Run({ ...this.tmrConfig, votingMethod: key as VotingMethodsFunctionsKeys });
+
+        comparisonResults.push(results);
+        this.setBenchmarkingData(comparisonResults);
+      }
+    });
+    console.log(comparisonResults);
+  };
+
+  @action
   run = async (): Promise<void> => {
     const tmr = new TMR(this.operationModuleConfig);
     const modules = getModulesPerIteration(this.modulesPerIteration);
@@ -80,6 +112,8 @@ export default class TMRStore {
     tmr.inputGenerator = new InputGenerator({ maximum: 50, minimum: 1});
 
     const results = await tmr.Run(this.tmrConfig);
+
+    this.generateVotingMethodCoparisonResult();
 
     this.setResults(results.iterationResult);
     this.setStatistics(results.statistics);

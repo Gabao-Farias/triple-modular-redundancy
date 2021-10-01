@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { InputGeneratorConfig, OperationModuleConfig, Results, RunConfig, Statistics } from './components';
+import { Benchmarking, InputGeneratorConfig, OperationModuleConfig, Results, RunConfig, Statistics } from './components';
 import { StoreKeyNames } from './stores';
 import TMRStore from './stores/tmr.store';
 import { ButtonWrapper, ConfigTitle, ConfigWrapper, RunButton, Wrapper } from './styles';
@@ -86,6 +86,7 @@ const App: React.FC<Props> = ({ tmrStore }) => {
         </ButtonWrapper>
       <Results results={tmrStore?.results} />
       <Statistics statistics={tmrStore?.statistics} />
+      <Benchmarking benchmarkingResults={tmrStore?.benchmarkingResults} />
     </Wrapper>
   );
 };
