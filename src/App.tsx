@@ -4,11 +4,11 @@ import { InputGeneratorConfig, OperationModuleConfig, Results, RunConfig, Statis
 import VotingMethod from './lib/tmr/Voter/VotingMethod';
 import { StoreKeyNames } from './stores';
 import TMRStore from './stores/tmr.store';
-import { FunctionsKeys } from './utils';
 import InputGenerator from './lib/tmr/InputGenerator/InputGenerator';
 import TMR from './lib/tmr/TMR';
 import OperationModule from './lib/tmr/OperationModule/OperationModule';
 import { ButtonWrapper, ConfigTitle, ConfigWrapper, RunButton, Wrapper } from './styles';
+import { OperationFunctionsKeys } from './utils';
 
 type Props = {
   tmrStore?: TMRStore;
@@ -23,7 +23,7 @@ const splitCorrectVotingMethodKeys = (): string[] => {
 
 const App: React.FC<Props> = ({ tmrStore }) => {
 
-  const handleOperationNameChange = ( operationName: FunctionsKeys ): void => {
+  const handleOperationNameChange = ( operationName: OperationFunctionsKeys ): void => {
     tmrStore?.setOperationModuleConfig({ operationName });
   };
 

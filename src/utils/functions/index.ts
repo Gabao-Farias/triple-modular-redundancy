@@ -1,16 +1,22 @@
-import half from './half';
-import double from './double';
-import square from './square';
-import cube from './cube';
+import { cube, double, half, square } from './operations';
 
-const functions = {
+import { average, averageQuantity, quantity } from './votationMethod';
+
+export const operationFunctions = {
   half,
   double,
   square,
   cube
 };
 
-export type FunctionsType = typeof functions;
-export type FunctionsKeys = keyof FunctionsType;
+export type OperationFunctionsType = typeof operationFunctions;
+export type OperationFunctionsKeys = keyof OperationFunctionsType;
 
-export default functions;
+export const votingMethodsFunctions = {
+  average,
+  averageQuantity,
+  quantity
+};
+
+export type VotingMethodsFunctionsType = typeof votingMethodsFunctions;
+export type VotingMethodsFunctionsKeys = keyof VotingMethodsFunctionsType;

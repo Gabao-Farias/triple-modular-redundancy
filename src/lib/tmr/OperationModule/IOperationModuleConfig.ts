@@ -1,8 +1,8 @@
-import { FunctionsKeys } from "../../../utils/functions";
+import { OperationFunctionsKeys } from "../../../utils/functions";
 
 export default interface IOperationModuleConfig{
     deviationChance: number
     deviationMaxThreshold: number
     deviationMinThreshold: number
-    operationName: FunctionsKeys
+    operationName: OperationFunctionsKeys
 }
