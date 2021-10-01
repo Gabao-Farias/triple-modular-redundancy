@@ -27,7 +27,6 @@ const RunConfig: FC<Props> = ({
 }) => {
   const defaultHandleChange = (value: VotingMethodsFunctionsKeys) => {
     if (handleVotingChange) {
-      console.log(value);
       handleVotingChange(value);
       return;
     }

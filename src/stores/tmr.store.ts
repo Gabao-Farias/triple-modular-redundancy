@@ -80,7 +80,6 @@ export default class TMRStore {
     tmr.inputGenerator = new InputGenerator({ maximum: 50, minimum: 1});
 
     const results = await tmr.Run(this.tmrConfig);
-    console.log(results);
 
     this.setResults(results.iterationResult);
     this.setStatistics(results.statistics);
