@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import { PureWhite } from "../../utils";
 
+const defaultChartWidth = 850;
+
 export const Wrapper = styled.div`
   flex-direction: column;
+  padding-top: 48px;
 `;
 
 export const TitleWrapper = styled.div`
@@ -12,12 +15,14 @@ export const TitleWrapper = styled.div`
 
 export const Title = styled.h1``;
 
-export const SubTitle = styled.h2``;
+export const SubTitle = styled.h3``;
 
 export const SuccessPercentageWrapper = styled.div`
   flex-direction: column;
   align-items: center;
-  margin: 96px;
+  justify-content: center;
+  height: 500px;
+  /* margin: 96px; */
 `;
 
 export const SuccessTitle = styled.h2`
@@ -32,6 +37,7 @@ export const TotalsWrapper = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
+  height: 300px;
 `;
 
 export const SubTotalsWrapper = styled.div`
@@ -51,3 +57,32 @@ export const TotalWrapper = styled.div`
 export const Label = styled.h5``;
 
 export const SubLabel = styled.h6``;
+
+export const ChartsWrapper = styled.div`
+  flex-direction: column;
+  align-items: center;
+  /* background-color: #000; */
+  padding: 24px 0;
+`;
+
+export const ChartWrapper = styled.div`
+  width: 100%;
+  padding-top: 24px;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: auto;
+
+  @media (max-width: ${defaultChartWidth}px){
+    align-items: unset;
+  }
+`;
+
+export const ChartTitle = styled.h3`
+
+`;
+
+export const SubChartWrapper = styled.div`
+  display: flex;
+  width: ${defaultChartWidth}px;
+  justify-content: center;
+`;

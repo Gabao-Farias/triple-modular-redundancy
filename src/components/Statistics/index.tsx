@@ -1,10 +1,15 @@
 import React, { FC } from 'react';
-import { Wrapper, Title, SuccessPercentageWrapper, SuccessPercentage, TotalsWrapper, SubTitle, TitleWrapper, Label, TotalWrapper, SubTotalsWrapper } from './styles';
-// import { Wrapper } from './styles';
+import { Bar, BarChart, CartesianGrid, Legend, ReferenceLine, Tooltip, XAxis, YAxis } from 'recharts';
+import { PureWhite, WarningColor } from '../../utils';
+import { Wrapper, Title, SuccessPercentageWrapper, SuccessPercentage, TotalsWrapper, SubTitle, TitleWrapper, Label, TotalWrapper, SubTotalsWrapper, ChartsWrapper, ChartWrapper, ChartTitle, SubChartWrapper } from './styles';
 
 type Props = {
   statistics?: TMRResultStatistics;
 };
+
+// const retrieveChartFormattedData = (): BrushBarChartDataType[] => {
+
+// };
 
 const Statistics: FC<Props> = ({ statistics }) => {
   if (statistics)
@@ -34,6 +39,33 @@ const Statistics: FC<Props> = ({ statistics }) => {
             </TotalWrapper>
           </SubTotalsWrapper>
         </TotalsWrapper>
+        <ChartsWrapper>
+          <SubTitle>Charts</SubTitle>
+          <ChartTitle>ModulesStatusByIteration</ChartTitle>
+          <ChartWrapper>
+            <SubChartWrapper>
+              <BarChart
+                width={800}
+                height={300}
+                data={statistics.statisticsPerIteration}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <Tooltip />
+                <CartesianGrid strokeDasharray="12 8" />
+                <XAxis stroke={PureWhite} dataKey="iteration" />
+                <YAxis stroke={PureWhite} />
+                <Legend verticalAlign="bottom"  wrapperStyle={{ lineHeight: '40px' }} />
+                <ReferenceLine y={0} stroke="#000" />
+                <Bar dataKey="failedModuleOutputs" fill={WarningColor} />
+              </BarChart>
+            </SubChartWrapper>
+          </ChartWrapper>
+        </ChartsWrapper>
       </Wrapper>
     );
 
@@ -41,7 +73,7 @@ const Statistics: FC<Props> = ({ statistics }) => {
     <Wrapper>
       <TitleWrapper>
         <Title>Statistics</Title>
-        <SubTitle>You must run before have the statistics generated!</SubTitle>
+        <SubTitle>You must run to generate statistics!</SubTitle>
       </TitleWrapper>
     </Wrapper>
   );

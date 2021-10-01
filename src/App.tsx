@@ -8,7 +8,7 @@ import { FunctionsKeys } from './utils';
 import InputGenerator from './lib/tmr/InputGenerator/InputGenerator';
 import TMR from './lib/tmr/TMR';
 import OperationModule from './lib/tmr/OperationModule/OperationModule';
-import { ConfigTitle, ConfigWrapper, RunButton, Wrapper } from './styles';
+import { ButtonWrapper, ConfigTitle, ConfigWrapper, RunButton, Wrapper } from './styles';
 
 type Props = {
   tmrStore?: TMRStore;
@@ -65,15 +65,6 @@ const App: React.FC<Props> = ({ tmrStore }) => {
 
   return (
     <Wrapper>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: 800,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
         <ConfigTitle>Setup</ConfigTitle>
         <ConfigWrapper>
           <InputGeneratorConfig
@@ -102,21 +93,11 @@ const App: React.FC<Props> = ({ tmrStore }) => {
             modulePerIterationValue={tmrStore?.modulesPerIteration}
           />
         </ConfigWrapper>
+        <ButtonWrapper>
         <RunButton onClick={() => handleClick()}>Run</RunButton>
-      </div>
+        </ButtonWrapper>
       <Results results={tmrStore?.results} />
       <Statistics statistics={tmrStore?.statistics} />
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: 800,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <h1>Hello world!</h1>
-      </div>
     </Wrapper>
   );
 };

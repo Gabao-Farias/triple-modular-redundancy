@@ -13,6 +13,15 @@ export const Wrapper = styled.div`
   flex-direction: column;
 `;
 
+export const ResultsTitleWrapper = styled.div`
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const ResultsTitle = styled.h1``;
+
+export const ResultsSubTitle = styled.h3``;
+
 export const ResultsWrapper = styled.div`
   flex-direction: column;
 `;
