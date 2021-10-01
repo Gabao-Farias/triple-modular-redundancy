@@ -35,9 +35,9 @@ tmr.inputGenerator = inpGenerator;
         votingMethod: "averageVoting"
     })
     
-    console.log(result)
+    // console.log(result)
     
     result.iterationResult.forEach(iterationResult => {
-        console.log(iterationResult);
+        // console.log(iterationResult);
     })
 })()
