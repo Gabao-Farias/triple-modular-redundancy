@@ -1,5 +1,5 @@
-import VotingMethod from "./VotingMethod";
+import { VotingMethodsFunctionsKeys } from "../../../utils";
 
 export default interface IVoter{
-    DoVote(outputs: number[], votingMethod: VotingMethod): number
+    DoVote(outputs: number[], votingMethod: VotingMethodsFunctionsKeys): number
 }

@@ -1,6 +1,6 @@
+import { VotingMethodsFunctionsKeys } from "../../utils";
 import ModuleIterationResult from "./ModuleIterationResult"
 import IOperationModuleConfig from "./OperationModule/IOperationModuleConfig"
-import VotingMethod from "./Voter/VotingMethod"
 import TMRResultStatistics from './Statistics/TMRResultStatistics'
 export default class TMRResult{
     public operationModuleConfig: IOperationModuleConfig = {
@@ -9,7 +9,7 @@ export default class TMRResult{
         deviationMinThreshold: 0,
         operationName: 'double',
     };
-    public votingMethod: VotingMethod = VotingMethod.Average;
+    public votingMethod: VotingMethodsFunctionsKeys = "averageVoting";
     public iterationResult: Array<ModuleIterationResult> = [];
 
     public statistics?: TMRResultStatistics

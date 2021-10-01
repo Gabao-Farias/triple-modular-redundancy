@@ -1,24 +1,13 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { InputGeneratorConfig, OperationModuleConfig, Results, RunConfig, Statistics } from './components';
-import VotingMethod from './lib/tmr/Voter/VotingMethod';
 import { StoreKeyNames } from './stores';
 import TMRStore from './stores/tmr.store';
-import InputGenerator from './lib/tmr/InputGenerator/InputGenerator';
-import TMR from './lib/tmr/TMR';
-import OperationModule from './lib/tmr/OperationModule/OperationModule';
 import { ButtonWrapper, ConfigTitle, ConfigWrapper, RunButton, Wrapper } from './styles';
-import { OperationFunctionsKeys } from './utils';
+import { OperationFunctionsKeys, VotingMethodsFunctionsKeys } from './utils';
 
 type Props = {
   tmrStore?: TMRStore;
-};
-
-const votingMethodKeys = Object.keys(VotingMethod);
-
-const splitCorrectVotingMethodKeys = (): string[] => {
-  const resultantArray = votingMethodKeys.slice((votingMethodKeys.length / 2), votingMethodKeys.length);
-  return resultantArray;
 };
 
 const App: React.FC<Props> = ({ tmrStore }) => {
@@ -27,7 +16,7 @@ const App: React.FC<Props> = ({ tmrStore }) => {
     tmrStore?.setOperationModuleConfig({ operationName });
   };
 
-  const handleVotingMethodChange = ( votingMethod: number ): void => {
+  const handleVotingMethodChange = ( votingMethod: VotingMethodsFunctionsKeys ): void => {
     tmrStore?.setTMRRunConfig({ votingMethod })
   };
 
@@ -85,8 +74,7 @@ const App: React.FC<Props> = ({ tmrStore }) => {
           />
           <RunConfig
             handleVotingChange={handleVotingMethodChange}
-            votingValue={tmrStore?.tmrConfig.votingMethod || 0}
-            votingMethods={splitCorrectVotingMethodKeys()}
+            votingValue={tmrStore?.tmrConfig.votingMethod}
             iterationsValue={tmrStore?.tmrConfig.iterations}
             handleIterationChange={handleIterationsChange}
             handleModulePerIterationChange={handleModulesPerIterationChange}
@@ -105,17 +93,3 @@ const App: React.FC<Props> = ({ tmrStore }) => {
 const tmr: StoreKeyNames = 'tmrStore';
 
 export default inject(tmr)(observer(App));
-
-
-const teste = new TMR({deviationChance: 10, deviationMaxThreshold: 5, deviationMinThreshold: 0.1, operationName: "double"});
-
-var op = [new OperationModule(), new OperationModule(), new OperationModule(), new OperationModule(), new OperationModule()]
-const inp = new InputGenerator({ maximum: 50, minimum: 1})
-
-teste.AddOperationModule(...op)
-teste.inputGenerator = inp;
-
-(async () => {
-  var r = await teste.Run({ iterations: 100, votingMethod: VotingMethod.Average})
-  console.log(r);
-})()

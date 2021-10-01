@@ -1,32 +1,34 @@
 import React, { FC } from 'react';
+import { votingMethodsFunctions, VotingMethodsFunctionsKeys } from '../../utils';
 import { InputWrapper, Label, Option, Select, SubLabel, SubWrapper, TextInput, Title, Wrapper } from './styles';
 
 type Props = {
   iterationInputProps?: React.InputHTMLAttributes<HTMLInputElement>;
   inputWrapperProps?: React.HTMLAttributes<HTMLDivElement>;
   iterationsValue?: number;
-  votingValue?: string | number;
+  votingValue?: VotingMethodsFunctionsKeys;
   modulePerIterationValue?: number;
-  handleVotingChange?: (votingMethod: number) => void;
+  handleVotingChange?: (votingMethod: VotingMethodsFunctionsKeys) => void;
   handleIterationChange?: (iterations: number) => void;
   handleModulePerIterationChange?: (modules: number) => void;
-  votingMethods?: string[];
 };
+
+const votingMethods = Object.keys(votingMethodsFunctions);
 
 const RunConfig: FC<Props> = ({
   iterationInputProps,
   inputWrapperProps,
   votingValue = "0",
-  votingMethods = [],
   handleVotingChange,
   handleIterationChange,
   handleModulePerIterationChange,
   iterationsValue = 0,
   modulePerIterationValue = 0,
 }) => {
-  const defaultHandleChange = (value: string) => {
+  const defaultHandleChange = (value: VotingMethodsFunctionsKeys) => {
     if (handleVotingChange) {
-      handleVotingChange(Number(value));
+      console.log(value);
+      handleVotingChange(value);
       return;
     }
     console.warn("No function passed on 'handleChange'");
@@ -59,8 +61,8 @@ const RunConfig: FC<Props> = ({
         </SubWrapper>
         <SubWrapper>
           <Label>VotingMethod</Label>
-          <Select value={votingValue} onChange={({ target }) => defaultHandleChange(target.value)}>
-            {votingMethods.map((key, index) => <Option key={key} value={index}>{key}</Option>)}
+          <Select value={votingValue} onChange={({ target }) => defaultHandleChange(target.value as VotingMethodsFunctionsKeys)}>
+            {votingMethods.map((key) => <Option key={key} value={key}>{key}</Option>)}
           </Select>
         </SubWrapper>
         <SubWrapper>

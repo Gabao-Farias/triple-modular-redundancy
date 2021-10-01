@@ -40,7 +40,6 @@ export const TextInput = styled.input`
 export const SelectInput = styled.input`
   border: 2px solid #f7f7f7;
   border-radius: 6px;
-  width: 100px;
   padding: 6px;
   margin: 4px;
   background-color: transparent;
@@ -50,7 +49,6 @@ export const Select = styled.select`
   outline: none;
   border: 2px solid #f7f7f7;
   border-radius: 6px;
-  width: 100px;
   padding: 6px;
   margin: 4px;
   background-color: transparent;
