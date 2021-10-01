@@ -7,10 +7,6 @@ type Props = {
   statistics?: TMRResultStatistics;
 };
 
-// const retrieveChartFormattedData = (): BrushBarChartDataType[] => {
-
-// };
-
 const Statistics: FC<Props> = ({ statistics }) => {
   if (statistics)
     return (

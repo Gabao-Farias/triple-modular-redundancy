@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { InputGeneratorConfig, OperationModuleConfig, Results, RunConfig, Statistics } from './components';
+import { Benchmarking, Colaborators, InputGeneratorConfig, OperationModuleConfig, Results, RunConfig, Statistics } from './components';
 import { StoreKeyNames } from './stores';
 import TMRStore from './stores/tmr.store';
 import { ButtonWrapper, ConfigTitle, ConfigWrapper, RunButton, Wrapper } from './styles';
@@ -53,40 +53,44 @@ const App: React.FC<Props> = ({ tmrStore }) => {
   };
 
   return (
-    <Wrapper>
-        <ConfigTitle>Setup</ConfigTitle>
-        <ConfigWrapper>
-          <InputGeneratorConfig
-            maxValue={tmrStore?.inputGeneratorConfig.maximum}
-            minValue={tmrStore?.inputGeneratorConfig.minimum}
-            onChangeMaxValue={(iterations) => handleMaxMinChange(iterations, "maximum")}
-            onChangeMinValue={(iterations) => handleMaxMinChange(iterations, "minimum")}
-          />
-          <OperationModuleConfig
-            operationValue={tmrStore?.operationModuleConfig.operationName}
-            handleOperationNameChange={handleOperationNameChange}
-            deviationChanceValue={tmrStore?.operationModuleConfig.deviationChance}
-            handleDeviationChanceChange={handleDeviationChanceChange}
-            handleDeviationMaxThresholdChange={handleDeviationMaxThresholdChange}
-            handleDeviationMinThresholdChange={handleDeviationMinThresholdChange}
-            deviationMaxThresholdValue={tmrStore?.operationModuleConfig.deviationMaxThreshold}
-            deviationMinThresholdValue={tmrStore?.operationModuleConfig.deviationMinThreshold}
-          />
-          <RunConfig
-            handleVotingChange={handleVotingMethodChange}
-            votingValue={tmrStore?.tmrConfig.votingMethod}
-            iterationsValue={tmrStore?.tmrConfig.iterations}
-            handleIterationChange={handleIterationsChange}
-            handleModulePerIterationChange={handleModulesPerIterationChange}
-            modulePerIterationValue={tmrStore?.modulesPerIteration}
-          />
-        </ConfigWrapper>
-        <ButtonWrapper>
-        <RunButton onClick={() => handleClick()}>Run</RunButton>
-        </ButtonWrapper>
-      <Results results={tmrStore?.results} />
-      <Statistics statistics={tmrStore?.statistics} />
-    </Wrapper>
+    <>
+      <Wrapper>
+          <ConfigTitle>Setup</ConfigTitle>
+          <ConfigWrapper>
+            <InputGeneratorConfig
+              maxValue={tmrStore?.inputGeneratorConfig.maximum}
+              minValue={tmrStore?.inputGeneratorConfig.minimum}
+              onChangeMaxValue={(iterations) => handleMaxMinChange(iterations, "maximum")}
+              onChangeMinValue={(iterations) => handleMaxMinChange(iterations, "minimum")}
+            />
+            <OperationModuleConfig
+              operationValue={tmrStore?.operationModuleConfig.operationName}
+              handleOperationNameChange={handleOperationNameChange}
+              deviationChanceValue={tmrStore?.operationModuleConfig.deviationChance}
+              handleDeviationChanceChange={handleDeviationChanceChange}
+              handleDeviationMaxThresholdChange={handleDeviationMaxThresholdChange}
+              handleDeviationMinThresholdChange={handleDeviationMinThresholdChange}
+              deviationMaxThresholdValue={tmrStore?.operationModuleConfig.deviationMaxThreshold}
+              deviationMinThresholdValue={tmrStore?.operationModuleConfig.deviationMinThreshold}
+            />
+            <RunConfig
+              handleVotingChange={handleVotingMethodChange}
+              votingValue={tmrStore?.tmrConfig.votingMethod}
+              iterationsValue={tmrStore?.tmrConfig.iterations}
+              handleIterationChange={handleIterationsChange}
+              handleModulePerIterationChange={handleModulesPerIterationChange}
+              modulePerIterationValue={tmrStore?.modulesPerIteration}
+            />
+          </ConfigWrapper>
+          <ButtonWrapper>
+          <RunButton onClick={() => handleClick()}>Run</RunButton>
+          </ButtonWrapper>
+        <Results results={tmrStore?.results} />
+        <Statistics statistics={tmrStore?.statistics} />
+        <Benchmarking benchmarkingResults={tmrStore?.benchmarkingResults} />
+      </Wrapper>
+      <Colaborators />
+    </>
   );
 };
 
