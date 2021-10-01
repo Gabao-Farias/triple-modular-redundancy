@@ -60,51 +60,9 @@ export const TotalWrapper = styled.div`
   margin: 12px;
 `;
 
-// export const SuccessPercentageWrapper = styled.div`
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   height: 500px;
-// `;
-
-// export const SuccessTitle = styled.h2`
-//   font-size: 2rem;
-// `;
-
-// export const SuccessPercentage = styled.p`
-//   font-size: 4rem;
-// `;
-
-// export const TotalsWrapper = styled.div`
-//   flex-wrap: wrap;
-//   flex-direction: column;
-//   align-items: center;
-//   height: 300px;
-// `;
-
-// export const SubTotalsWrapper = styled.div`
-//   justify-content: center;
-//   flex-wrap: wrap;
-// `;
-
-// export const TotalWrapper = styled.div`
-//   flex-direction: column;
-//   align-items: center;
-//   border: 2px solid ${PureWhite};
-//   border-radius: 6px;
-//   padding: 6px;
-//   margin: 12px;
-// `;
-
 export const Label = styled.h4``;
 
 export const SubLabel = styled.h5``;
-
-// export const ChartsWrapper = styled.div`
-//   flex-direction: column;
-//   align-items: center;
-//   padding: 24px 0;
-// `;
 
 export const ChartWrapper = styled.div`
   width: 100%;
@@ -118,8 +76,6 @@ export const ChartWrapper = styled.div`
   }
 `;
 
-// export const ChartTitle = styled.h3``;
-
 export const SubChartWrapper = styled.div`
   display: flex;
   width: ${defaultChartWidth}px;
@@ -130,6 +86,4 @@ export const ChartArrayWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const ChartTitle = styled.h3`
-  
-`;
+export const ChartTitle = styled.h3``;
