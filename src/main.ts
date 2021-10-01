@@ -3,7 +3,6 @@ import InputGenerator from "./lib/tmr/InputGenerator/InputGenerator";
 import OperationModule from "./lib/tmr/OperationModule/OperationModule";
 import OperationModuleConfig from "./lib/tmr/OperationModule/OperationModuleConfig";
 import TMR from "./lib/tmr/TMR";
-import VotingMethod from "./lib/tmr/Voter/VotingMethod";
 
 
 var operationModuleConfig = new OperationModuleConfig({
@@ -33,7 +32,7 @@ tmr.inputGenerator = inpGenerator;
 
     var result = await tmr.Run({
         iterations: 10,
-        votingMethod: VotingMethod.Average
+        votingMethod: "averageVoting"
     })
     
     console.log(result)

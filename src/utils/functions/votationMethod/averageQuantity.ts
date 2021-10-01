@@ -1,6 +1,6 @@
-import average from "./average";
+import { average } from ".";
 
-const averageQuantity = (numberArr: number[]) => {
+const averageQuantityVoting = (numberArr: number[]) => {
   var averageVotingResult = average(numberArr);
   var closestMaximumCount = 0
   var closestMinimumCount = 0
@@ -13,4 +13,4 @@ const averageQuantity = (numberArr: number[]) => {
   return closestMinimumCount >= closestMaximumCount ? averageVotingResult.closestMinimum : averageVotingResult.closestMaximum;
 };
 
-export default averageQuantity;
+export default averageQuantityVoting;

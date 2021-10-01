@@ -1,6 +1,6 @@
 import { cube, double, half, square } from './operations';
 
-import { average, averageQuantity, quantity } from './votationMethod';
+import { averageVoting, averageQuantityVoting, quantityVoting } from './votationMethod';
 
 export const operationFunctions = {
   half,
@@ -13,9 +13,9 @@ export type OperationFunctionsType = typeof operationFunctions;
 export type OperationFunctionsKeys = keyof OperationFunctionsType;
 
 export const votingMethodsFunctions = {
-  average,
-  averageQuantity,
-  quantity
+  averageVoting,
+  averageQuantityVoting,
+  quantityVoting
 };
 
 export type VotingMethodsFunctionsType = typeof votingMethodsFunctions;

@@ -4,6 +4,7 @@ import InputGenerator from '../lib/tmr/InputGenerator/InputGenerator';
 import TMR from '../lib/tmr/TMR';
 import { getModulesPerIteration } from '../utils';
 import { OperationModuleType } from '../utils/types';
+import { TMRRunConfigType } from '../utils/types/Run';
 
 export default class TMRStore {
   constructor() {
@@ -26,7 +27,7 @@ export default class TMRStore {
 
   @persist('object')
   @observable
-  tmrConfig: TMRRunConfigType = { iterations: 5, votingMethod: 0 }
+  tmrConfig: TMRRunConfigType = { iterations: 5, votingMethod: "averageVoting" }
 
   @persist('object')
   @observable
