@@ -34,7 +34,7 @@ export default class TMRStore {
 
   @persist('object')
   @observable
-  results: ModuleIterationResultType[] = [];
+  results?: ModuleIterationResultType[];
 
   @persist('object')
   @observable
