@@ -1,3 +1,4 @@
+/* eslint-disable no-loop-func */
 import IoperationModule from "./OperationModule/IOperationModule";
 import ITMR from "./ITMR";
 import IInputGenerator from "./InputGenerator/IInputGenerator";

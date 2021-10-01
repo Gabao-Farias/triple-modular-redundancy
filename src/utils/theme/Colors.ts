@@ -7,5 +7,5 @@ export const ErrorColor = "#f00"
 export const WarningColor = "#ff8800"
 
 // Background gradient
-export const GradientSecondary = "#000000";
-export const GradientPrimary = "#00aa7f";
+export const GradientSecondary = "#2c646a";
+export const GradientPrimary = "#000000";

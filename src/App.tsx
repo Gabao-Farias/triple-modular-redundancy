@@ -1,6 +1,6 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { InputGeneratorConfig, OperationModuleConfig, Results, RunConfig } from './components';
+import { InputGeneratorConfig, OperationModuleConfig, Results, RunConfig, Statistics } from './components';
 import VotingMethod from './lib/tmr/Voter/VotingMethod';
 import { StoreKeyNames } from './stores';
 import TMRStore from './stores/tmr.store';
@@ -8,7 +8,7 @@ import { FunctionsKeys } from './utils';
 import InputGenerator from './lib/tmr/InputGenerator/InputGenerator';
 import TMR from './lib/tmr/TMR';
 import OperationModule from './lib/tmr/OperationModule/OperationModule';
-import { ConfigTitle, ConfigWrapper, RunButton, Wrapper } from './styles';
+import { ButtonWrapper, ConfigTitle, ConfigWrapper, RunButton, Wrapper } from './styles';
 
 type Props = {
   tmrStore?: TMRStore;
@@ -56,7 +56,6 @@ const App: React.FC<Props> = ({ tmrStore }) => {
   };
 
   const handleClick = async () => {
-    console.log("Perssed");
     try {
       await tmrStore?.run();
     } catch (err) {
@@ -66,15 +65,6 @@ const App: React.FC<Props> = ({ tmrStore }) => {
 
   return (
     <Wrapper>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: 800,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
         <ConfigTitle>Setup</ConfigTitle>
         <ConfigWrapper>
           <InputGeneratorConfig
@@ -103,20 +93,11 @@ const App: React.FC<Props> = ({ tmrStore }) => {
             modulePerIterationValue={tmrStore?.modulesPerIteration}
           />
         </ConfigWrapper>
+        <ButtonWrapper>
         <RunButton onClick={() => handleClick()}>Run</RunButton>
-      </div>
+        </ButtonWrapper>
       <Results results={tmrStore?.results} />
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: 800,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <h1>Hello world!</h1>
-      </div>
+      <Statistics statistics={tmrStore?.statistics} />
     </Wrapper>
   );
 };

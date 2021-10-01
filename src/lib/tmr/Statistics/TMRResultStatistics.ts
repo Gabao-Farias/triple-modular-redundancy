@@ -19,6 +19,7 @@ export default class TMRResultStatistics{
   
 
     public statisticsPerIteration: {
-        failedModuleOutputs: number
+        failedModuleOutputs: number;
+        iteration: string;
     }[] = []
 }
