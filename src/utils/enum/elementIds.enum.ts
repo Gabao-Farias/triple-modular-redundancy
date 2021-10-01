@@ -1,5 +1,0 @@
-enum ELEMENT_IDS {
-  COMPONENT_INPUT = "COMPONENT_INPUT",
-}
-
-export default ELEMENT_IDS;
