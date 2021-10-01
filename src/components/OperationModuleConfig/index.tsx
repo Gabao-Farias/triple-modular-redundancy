@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
-import functions from '../../utils/functions';
-import { FunctionsKeys } from '../../utils';
+import { operationFunctions, OperationFunctionsKeys } from '../../utils';
 import {
   InputWrapper,
   Label,
@@ -17,8 +16,8 @@ type Props = {
   maxInputProps?: React.InputHTMLAttributes<HTMLInputElement>;
   minInputProps?: React.InputHTMLAttributes<HTMLInputElement>;
   inputWrapperProps?: React.HTMLAttributes<HTMLDivElement>;
-  operationValue?: FunctionsKeys;
-  handleOperationNameChange?: (operation: FunctionsKeys) => void;
+  operationValue?: OperationFunctionsKeys;
+  handleOperationNameChange?: (operation: OperationFunctionsKeys) => void;
   deviationChanceValue?: number;
   handleDeviationChanceChange?: (value: number) => void;
   deviationMaxThresholdValue?: number;
@@ -27,7 +26,7 @@ type Props = {
   handleDeviationMinThresholdChange?: (value: number) => void;
 };
 
-const functionsKeys = Object.keys(functions);
+const functionsKeys = Object.keys(operationFunctions);
 
 const Module: FC<Props> = ({
   maxInputProps,
@@ -44,7 +43,7 @@ const Module: FC<Props> = ({
 }) => {
   const defaultHandleOperationNameChange = (value: string) => {
     if (handleOperationNameChange) {
-      handleOperationNameChange(value as FunctionsKeys);
+      handleOperationNameChange(value as OperationFunctionsKeys);
       return;
     }
     console.warn("No function passed on 'handleOperationNameChange'");

@@ -5,12 +5,12 @@ import IInputGenerator from "./InputGenerator/IInputGenerator";
 import IOperationModuleConfig from "./OperationModule/IOperationModuleConfig";
 import TMRRunConfig from "./TMRRunConfig";
 import TMRResult from "./TMRResult";
-import functions from "../../utils/functions";
 import InputGenerator from "./InputGenerator/InputGenerator";
 import Voter from "./Voter/Voter";
 import IVoter from "./Voter/IVoter";
 import ModuleIterationResult from "./ModuleIterationResult";
 import IOperationModule from "./OperationModule/IOperationModule";
+import { operationFunctions } from "../../utils";
 
 
 export default class TMR implements ITMR {
@@ -63,7 +63,7 @@ export default class TMR implements ITMR {
 
             var iterationResult: ModuleIterationResult = {
                 input: randomInput,
-                expectedResult: functions[this._currentOperationModuleConfig.operationName](randomInput),
+                expectedResult: operationFunctions[this._currentOperationModuleConfig.operationName](randomInput),
                 processedOutputs: iterationOutputs,
                 voterResult: votingResult
             }
