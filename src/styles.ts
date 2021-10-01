@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   background: rgb(0,0,0);
   background: linear-gradient(352deg, ${GradientSecondary} 20%, ${GradientPrimary} 100%);
   padding: 12px 6px;
+  min-height: 100vh;
 `;
 
 export const ConfigTitle = styled.h1`
