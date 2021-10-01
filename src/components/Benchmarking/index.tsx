@@ -62,7 +62,7 @@ const Benchmarking: FC<Props> = ({ benchmarkingResults }) =>
         <ChartArrayWrapper>
           {benchmarkingResults.map((item) => (
             <ChartWrapper>
-              <ChartTitle>{item.votingMethod}</ChartTitle>
+              <ChartTitle>failedModuleOutputs ({item.votingMethod})</ChartTitle>
               <SubChartWrapper>
                 <BarChart
                   width={800}
