@@ -2,14 +2,19 @@ export const average = (numberArr: number[]) : { closestMinimum: number, closest
     var average = numberArr.length > 0 ? numberArr.reduce((curr, total) => curr + total) / numberArr.length : 0
     var closestMinimum: number = 0
     var closestMaximum: number = 0
+
+    var alreadySelectedClosestMaximum: boolean = false
     numberArr.forEach(output => {
-        if (closestMinimum == null || (output > closestMinimum && output <= average))
+        if (output >= closestMinimum && output <= average)
             closestMinimum = output
         
-        if (output >= average && closestMaximum == null)
+        if (output >= average  && !alreadySelectedClosestMaximum){
+            alreadySelectedClosestMaximum = true
             closestMaximum = output
+        }
     })
-    return { closestMaximum: closestMinimum, closestMinimum: closestMinimum, average: average };
+
+    return { closestMaximum: closestMaximum, closestMinimum: closestMinimum, average: average };
 }
 
 export const averageVoting = (numberArr: number[]) => {
